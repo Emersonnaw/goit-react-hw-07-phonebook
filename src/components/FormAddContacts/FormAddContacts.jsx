@@ -19,7 +19,6 @@ const initialValues = {
 export const FormAddContacts = () => {
 const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
-  console.log("contacts--->", contacts);
   const handleSubmit = (values, { resetForm }) => {
     const checkExistContact = contacts.find(contact => contact.name.toLowerCase() === values.name.toLowerCase());
     if (!checkExistContact) {
