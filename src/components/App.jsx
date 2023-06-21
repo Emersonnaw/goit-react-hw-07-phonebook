@@ -6,22 +6,20 @@ import {ToastContainer} from 'react-toastify';
 import { useDispatch, useSelector} from "react-redux";
 import { useEffect } from "react";
 import { fetchContacts } from "redux/operations";
-import { selectContacts, selectError, selectIsLoading } from "redux/selectors";
+import { selectContacts, selectError,  selectIsLoading } from "redux/selectors";
 import Loader from "./Loader/Loader";
-
 
 export const App = () => {
   const isLoading = useSelector(selectIsLoading); 
   const error = useSelector(selectError);
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
+
   useEffect(() => {
     dispatch(fetchContacts())
   }, [dispatch]);
   
- 
-
-  return (
+   return (
       <Div>
         <Title> Phonebook</Title>
         <FormAddContacts />

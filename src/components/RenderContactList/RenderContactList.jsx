@@ -11,7 +11,7 @@ export const RenderContactList = () => {
   return (
     <>
       <Ul>
-        {contacts.filter(contact => contact.name.includes(filterList.toLowerCase())).map(({ id, name, number }) => (
+        {contacts.filter(contact => contact.name.toLowerCase().includes(filterList.toLowerCase())).map(({ id, name, number }) => (
           <Li key={id}>
             <P>
              &#9742; &#160;{name}: {number}
