@@ -1,30 +1,29 @@
-
 import { Formik, ErrorMessage } from 'formik';
+import { toast} from 'react-toastify';
 import * as yup from 'yup';
 import { Container,  FormCastom, LabelCastom, InputCastom,Button } from './FormAddContacts.styled';
 import 'react-toastify/dist/ReactToastify.css';
-import { toast} from 'react-toastify';
 import { useSelector, useDispatch } from "react-redux";
-// import { addFormValue } from '../../redux/contactsSlice';
-import { addContact } from 'redux/operation';
+import { addContact } from 'redux/operations';
+import { selectContacts } from 'redux/selectors';
+
 let userSchema = yup.object().shape({
   name: yup.string().required(),
 });
+
 const initialValues = {
   name: '',
   number: '',
 };
 
 export const FormAddContacts = () => {
- const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.contacts);
-
+const contacts = useSelector(selectContacts);
+  const dispatch = useDispatch();
+  console.log("contacts--->", contacts);
   const handleSubmit = (values, { resetForm }) => {
-    dispatch(addContact(values));
-    const checkExistContact = contacts.find(contact => contact.name.toLowerCase() === (values.name));
+    const checkExistContact = contacts.find(contact => contact.name.toLowerCase() === values.name.toLowerCase());
     if (!checkExistContact) {
-      // dispatch(addContact(values))
-      // dispatch(addFormValue(values));
+      dispatch(addContact(values));
     } else {
      toast.error(`"${values.name.toUpperCase()} "is already in contacts`, {
                     position: "top-right",

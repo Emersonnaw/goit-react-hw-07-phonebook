@@ -1,18 +1,17 @@
 import { Ul,Li, P, Button } from './RenderContactList.styled';
 import { useSelector, useDispatch } from "react-redux";
-import { deleteContact } from 'redux/operation';
-import { getContacts } from 'redux/selectors';
+import { deleteContact } from 'redux/operations';
+import {selectContacts, selectFilter } from 'redux/selectors';
 
 export const RenderContactList = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts) ;
-  // const filterList = useSelector(state => state.filter);
-  console.log(contacts);
+  const contacts =  useSelector(selectContacts);
+  const filterList = useSelector(selectFilter);
+ 
   return (
     <>
       <Ul>
-        {/* contacts.filter(contact => contact.name.toLowerCase().includes(filterList.toLowerCase())) */}
-        {contacts.map(({ id, name, number }) => (
+        {contacts.filter(contact => contact.name.includes(filterList.toLowerCase())).map(({ id, name, number }) => (
           <Li key={id}>
             <P>
              &#9742; &#160;{name}: {number}

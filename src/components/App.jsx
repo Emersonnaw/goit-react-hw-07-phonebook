@@ -5,16 +5,16 @@ import { Div, Title, ContactsTitle } from './App.styled';
 import {ToastContainer} from 'react-toastify';
 import { useDispatch, useSelector} from "react-redux";
 import { useEffect } from "react";
-import { fetchContacts } from "redux/operation";
-import { getContacts, getError, getIsLoading } from "redux/selectors";
+import { fetchContacts } from "redux/operations";
+import { selectContacts, selectError, selectIsLoading } from "redux/selectors";
+import Loader from "./Loader/Loader";
 
 
 export const App = () => {
-  const isLoading = useSelector(getIsLoading); 
-  const error = useSelector(getError);
+  const isLoading = useSelector(selectIsLoading); 
+  const error = useSelector(selectError);
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-  // const contacts = useSelector(state => state.contacts.contacts);
+  const contacts = useSelector(selectContacts);
   useEffect(() => {
     dispatch(fetchContacts())
   }, [dispatch]);
@@ -24,10 +24,10 @@ export const App = () => {
   return (
       <Div>
         <Title> Phonebook</Title>
-        <FormAddContacts  />
+        <FormAddContacts />
         <ContactsTitle>Contacts</ContactsTitle>
 
-      {isLoading && !error && <h2>Loading ... </h2>} 
+      {isLoading && !error && <Loader />} 
         {contacts.length !== 0 && <FilterContacts />}
       
         <RenderContactList />  
